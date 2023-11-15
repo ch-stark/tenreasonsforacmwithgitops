@@ -10,7 +10,7 @@ Efficiently locate and manage resources across multiple clusters with RHACM's in
 
 ## 3. Pull-Model Option
 
-RHACM supports a pull-model option, allowing you to synchronize configurations from Git repositories using ArgoCD. This flexibility enables you to choose the workflow that best fits your organizational needs, whether it's a pull or push model.
+RHACM supports a pull-model option, allowing you to synchronize configurations from Git repositories using ArgoCD. This flexibility enables you to choose the workflow that best fits your organizational needs, whether it's a pull or push model. Enjoy the benefits of the Pull-Model option, such as enhanced performance, managing GitOps installations with policies, and comprehensive AppSet summary reports.
 
 ## 4. Integration with Cluster Lifecycle
 
@@ -18,7 +18,7 @@ Streamline the cluster lifecycle management with RHACM's integrated tools. Wheth
 
 ## 5. Strong Built-in RBAC Support with Centralized Push Model
 
-RHACM provides robust Role-Based Access Control (RBAC) support, particularly beneficial when utilizing a Centralized Push Model. Ensure that only authorized personnel can make changes and updates, enhancing security and compliance in your multi-cluster environment.
+RHACM provides robust Role-Based Access Control (RBAC) support, particularly beneficial when utilizing a Centralized Push Model. Enjoy two significant advantages when using the push model in ACM. By default, users can create the ACM GitOpsCluster API for generating cluster admin secrets for all managed clusters. Additionally, users can generate cluster secrets with customized roles for all managed clusters by leveraging the ACM ClusterPermission/ManagedServiceAccount API.
 
 ## 6. Integration with Placement for Advanced MultiCluster Scheduling
 
@@ -32,12 +32,10 @@ Visualize and analyze the health and performance of your multi-cluster environme
 
 RHACM seamlessly integrates with Gatekeeper, allowing you to enforce policies and ensure compliance across clusters. This integration enhances the security and reliability of your Kubernetes deployments.
 
-## 9. Integration with Governance for Advanced Use Cases (object-raw-templates)
+## 9. Integration with Governance for Advanced Use Cases
 
 Leverage RHACM's integration with Governance to implement advanced use cases, such as managing custom objects and raw templates. This flexibility empowers you to tailor your Kubernetes configurations to meet specific requirements.
 
 ## 10. Advanced Disaster Recovery Capabilities with ODF Integration
 
 Integrate RHACM with Open Data Foundation (ODF) for advanced Disaster Recovery (DR) capabilities. Ensure the resilience of your applications and data across clusters, minimizing downtime and providing a reliable solution for business continuity.
-
-In conclusion, Red Hat Advanced Cluster Management offers a comprehensive solution for GitOps with ArgoCD, addressing the complexities of managing Kubernetes in a multi-cluster environment. From enhanced UI support to advanced disaster recovery capabilities, RHACM is a valuable tool for organizations seeking efficiency, scalability, and security in their Kubernetes deployments.
