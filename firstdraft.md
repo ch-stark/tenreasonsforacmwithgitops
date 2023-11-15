@@ -1,25 +1,29 @@
-10 Reasons to Choose Red Hat Advanced Cluster Management (RHACM) for GitOps with ArgoCD
-1. UI-Support: ApplicationSets, Single Pane of Glass
+# 10 Reasons to Choose Red Hat Advanced Cluster Management (RHACM) for GitOps with ArgoCD
+
+## 1. UI-Support: ApplicationSets, Single Pane of Glass
+
 RHACM offers a user-friendly interface with support for ApplicationSets, allowing you to define and manage multiple applications across clusters. The Single Pane of Glass view provides a consolidated overview of your entire multi-cluster environment, simplifying the monitoring and management of applications.
 
-2. Integration with MultiCluster Search
+## 2. Integration with MultiCluster Search
+
 Efficiently locate and manage resources across multiple clusters with RHACM's integrated MultiCluster Search. This feature empowers administrators to quickly identify and act upon resources, enhancing the overall observability and control of the Kubernetes landscape.
 
-3. Pull-Model Option
+## 3. Pull-Model Option
+
 RHACM supports a pull-model option, allowing you to synchronize configurations from Git repositories using ArgoCD. This flexibility enables you to choose the workflow that best fits your organizational needs, whether it's a pull or push model. Enjoy the benefits of the Pull-Model option, such as enhanced performance, managing GitOps installations with policies, and comprehensive AppSet summary reports.
 
-Advantages of the Pull-Model:
+**Advantages of the Pull-Model:**
 The advantage of the pull model is decentralized control, where each cluster has its own copy of the configuration and is responsible for pulling updates independently. The hub-managed architecture using Argo CD and the pull model can reduce the need for a centralized system to manage the configurations of all target clusters, making the system more scalable and easier to manage. However, note that the hub cluster itself still represents a potential single point of failure, which you should address through redundancy or other means.
 
 Additionally, the pull model provides more flexibility, allowing clusters to pull updates on their schedule and reducing the risk of conflicts or disruptions.
 
-4. Integration with Cluster Lifecycle
+## 4. Integration with Cluster Lifecycle
+
 Streamline the cluster lifecycle management with RHACM's integrated tools. When you integrate with the GitOps operator for every managed cluster that is bound to the GitOps namespace through the placement and ManagedClusterSetBinding custom resources, a secret with a token to access the ManagedCluster is created in the namespace. This is required for the GitOps controller to sync resources to the managed cluster. When a user is given administrator access to a GitOps namespace to perform application lifecycle operations, the user also gains access to this secret and admin level to the managed cluster.
 
 If this is not desired, instead of binding the user to the namespace-scoped admin role, use a more restrictive custom role with permissions required to work with application resources that can be created and used to bound the user. See the following ClusterRole example:
 
-yaml
-Copy code
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -37,14 +41,15 @@ rules:
   - delete
   - deletecollection
   - patch
-5. Strong Built-in RBAC Support with Centralized Push Model
+
+## 5. Strong Built-in RBAC Support with Centralized Push Model
+
 Before the new feature, end-users use a cluster admin SA to deploy applications when using ArgoCD push model in ACM. With the new feature, end-users can deploy applications using a customized service account with specific permissions.
 
-Leveraging Managed-Service-Account:
+**Leveraging Managed-Service-Account:**
 Managed Service Account is an OCM addon enabling a hub cluster admin to manage service accounts across multiple clusters with ease. By controlling the creation and removal of the service account, the addon agent will monitor and rotate the corresponding token back to the hub cluster. To grant permissions to the new service account, we leverage the new cluster permission resource.
 
-yaml
-Copy code
+```yaml
 apiVersion: rbac.open-cluster-management.io/v1alpha1
 kind: ClusterPermission
 metadata:
@@ -89,88 +94,8 @@ Here are some key metrics you might want to include in your Grafana dashboards f
 - **ApplicationSet Sync Status:**
   ```promql
   argocd_app_set_sync_status{namespace="argocd", applicationset="your-applicationset-name"}
-ApplicationSet Sync Duration:
 
-promql
-Copy code
-argocd_app_set_sync_duration_seconds{namespace="argocd", applicationset="your-applicationset-name"}
-ArgoCD Server Metrics:
 
-promql
-Copy code
-argocd_server_requests_duration_seconds
-Custom Queries and Alerts:
-
-Depending on your specific needs, you might want to create custom queries and alerts in Grafana. For example, you can set up alerts for failed syncs, resource usage spikes, or long synchronization durations.
-
-Example Grafana Dashboard Queries:
-ApplicationSet Sync Status:
-
-promql
-Copy code
-argocd_app_set_sync_status{namespace="argocd", applicationset="your-applicationset-name"}
-ApplicationSet Sync Duration:
-
-promql
-Copy code
-argocd_app_set_sync_duration_seconds{namespace="argocd", applicationset="your-applicationset-name"}
-ArgoCD Server Metrics:
-
-promql
-Copy code
-argocd_server_requests_duration_seconds
-Conclusion:
-
-Setting up monitoring for ApplicationSets involves a combination of Prometheus for scraping metrics and Grafana for visualization. The specific metrics you monitor and the thresholds for alerts will depend on your use case and requirements. Make sure to tailor your dashboards to provide actionable insights into the health and performance of your ApplicationSets within the ArgoCD ecosystem.
-
-8. Supported Gatekeeper Integration
-RHACM seamlessly integrates with Gatekeeper, allowing you to enforce policies and ensure compliance across clusters. This integration enhances the security and reliability of your Kubernetes deployments.
-
-5 Ideas for Protecting, Mutating, or Monitoring ApplicationSets with Gatekeeper
-1. Enforce Naming Conventions
-Objective: Ensure that ApplicationSets follow a specific naming convention for consistency.
-
-Implementation:
-
-Use Gatekeeper to define a policy that checks the names of ApplicationSets.
-Define a Rego policy that enforces the naming convention (e.g., starts with a specific prefix).
-Disallow the creation or modification of ApplicationSets that do not adhere to the defined convention.
-2. Limit Resource Quotas
-Objective: Control the resources consumed by ApplicationSets to prevent excessive resource usage.
-
-Implementation:
-
-Implement a Gatekeeper policy to check the resource specifications within ApplicationSets.
-Define policies that restrict the usage of specific resource types, such as CPU and memory.
-Reject ApplicationSets that exceed defined resource quotas.
-3. Enforce Cluster Placement Policies
-Objective: Ensure that ApplicationSets are only applied to specific clusters based on defined placement policies.
-
-Implementation:
-
-Leverage Gatekeeper to enforce cluster placement policies for ApplicationSets.
-Define Rego policies that check the target clusters specified in ApplicationSets against predefined rules.
-Allow only ApplicationSets that comply with the defined placement policies.
-4. Monitor Configuration Changes
-Objective: Track and monitor changes to ApplicationSets for auditing and compliance purposes.
-
-Implementation:
-
-Use Gatekeeper to implement policies that capture and log changes to ApplicationSets.
-Integrate with Kubernetes audit logs or external logging systems.
-Ensure that any modifications to ApplicationSets are logged for later analysis.
-5. Customize GitOps Sync Behavior
-Objective: Customize the behavior of GitOps synchronization for specific ApplicationSets.
-
-Implementation:
-
-Implement Gatekeeper policies to define custom synchronization behaviors for selected ApplicationSets.
-Use Rego policies to specify rules for GitOps sync behavior based on your organization's requirements.
-9. Integration with Governance for Advanced Use Cases (object-raw-templates)
-Leverage RHACM's integration with Governance to implement advanced use cases, such as managing custom objects and raw templates. This flexibility empowers you to tailor your Kubernetes configurations to meet specific requirements.
-
-yaml
-Copy code
 object-templates-raw: |
   {{ range $placedec := (lookup "cluster.open-cluster-management.io/v1beta1" "PlacementDecision" "openshift-gitops" "" "cluster.open-cluster-management.io/placement=aws-app-placement").items }}
   {{ range $clustdec := $placedec.status.decisions }}
@@ -202,7 +127,3 @@ Integrate RHACM with Open Data Foundation (ODF) for advanced Disaster Recovery (
 Red Hat Advanced Cluster Management for Kubernetes (RHACM) stands out as a powerful solution for GitOps with ArgoCD. Whether you are looking for centralized control with a push model or decentralized flexibility with a pull model, RHACM has you covered. From UI-Support and MultiCluster Search to strong RBAC support and advanced disaster recovery capabilities with ODF integration, RHACM provides a feature-rich experience.
 
 Integrations with Managed Service Account, Governance, Placement, Gatekeeper, and ODF enhance the scalability, security, and ease of management of your Kubernetes deployments. Choose RHACM for a robust, user-friendly, and comprehensive solution to manage your multi-cluster environments effectively.
-
-
-
-
