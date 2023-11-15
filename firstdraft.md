@@ -19,7 +19,29 @@ Additionally, the pull model provides more flexibility, allowing clusters to pul
 
 ## 4. Integration with Cluster Lifecycle
 
-Streamline the cluster lifecycle management with RHACM's integrated tools. Whether you are provisioning new clusters or decommissioning old ones, RHACM ensures a seamless integration with the cluster lifecycle, reducing manual efforts and minimizing errors.
+Streamline the cluster lifecycle management with RHACM's integrated tools. When you integrate with the GitOps operator for every managed cluster that is bound to the GitOps namespace through the placement and ManagedClusterSetBinding custom resources, a secret with a token to access the ManagedCluster is created in the namespace. This is required for the GitOps controller to sync resources to the managed cluster. When a user is given administrator access to a GitOps namespace to perform application lifecycle operations, the user also gains access to this secret and admin level to the managed cluster.
+
+If this is not desired, instead of binding the user to the namespace-scoped admin role, use a more restrictive custom role with permissions required to work with application resources that can be created and used to bound the user. See the following ClusterRole example:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: application-set-admin
+rules:
+- apiGroups:
+  - argoproj.io
+  resources:
+  - applicationsets
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - deletecollection
+  - patch
+
 
 ## 5. Strong Built-in RBAC Support with Centralized Push Model
 
