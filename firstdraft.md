@@ -92,6 +92,52 @@ Visualize and analyze the health and performance of your multi-cluster environme
 
 RHACM seamlessly integrates with Gatekeeper, allowing you to enforce policies and ensure compliance across clusters. This integration enhances the security and reliability of your Kubernetes deployments.
 
+# 5 Ideas for Protecting, Mutating, or Monitoring ApplicationSets with Gatekeeper
+
+### 1. Enforce Naming Conventions
+
+**Objective:** Ensure that ApplicationSets follow a specific naming convention for consistency.
+
+**Implementation:**
+- Use Gatekeeper to define a policy that checks the names of ApplicationSets.
+- Define a Rego policy that enforces the naming convention (e.g., starts with a specific prefix).
+- Disallow the creation or modification of ApplicationSets that do not adhere to the defined convention.
+
+### 2. Limit Resource Quotas
+
+**Objective:** Control the resources consumed by ApplicationSets to prevent excessive resource usage.
+
+**Implementation:**
+- Implement a Gatekeeper policy to check the resource specifications within ApplicationSets.
+- Define policies that restrict the usage of specific resource types, such as CPU and memory.
+- Reject ApplicationSets that exceed defined resource quotas.
+
+### 3. Enforce Cluster Placement Policies
+
+**Objective:** Ensure that ApplicationSets are only applied to specific clusters based on defined placement policies.
+
+**Implementation:**
+- Leverage Gatekeeper to enforce cluster placement policies for ApplicationSets.
+- Define Rego policies that check the target clusters specified in ApplicationSets against predefined rules.
+- Allow only ApplicationSets that comply with the defined placement policies.
+
+### 4. Monitor Configuration Changes
+
+**Objective:** Track and monitor changes to ApplicationSets for auditing and compliance purposes.
+
+**Implementation:**
+- Use Gatekeeper to implement policies that capture and log changes to ApplicationSets.
+- Integrate with Kubernetes audit logs or external logging systems.
+- Ensure that any modifications to ApplicationSets are logged for later analysis.
+
+### 5. Customize GitOps Sync Behavior
+
+**Objective:** Customize the behavior of GitOps synchronization for specific ApplicationSets.
+
+**Implementation:**
+- Implement Gatekeeper policies to de
+
+
 ## 9. Integration with Governance for Advanced Use Cases (object-raw-templates)
 
 Leverage RHACM's integration with Governance to implement advanced use cases, such as managing custom objects and raw templates. This flexibility empowers you to tailor your Kubernetes configurations to meet specific requirements.
