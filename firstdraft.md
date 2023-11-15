@@ -91,10 +91,10 @@ Visualize and analyze the health and performance of your multi-cluster environme
 
 Here are some key metrics you might want to include in your Grafana dashboards for monitoring ApplicationSets:
 
-- **ApplicationSet Sync Status:**
+[- **ApplicationSet Sync Status:**
   ```promql
   argocd_app_set_sync_status{namespace="argocd", applicationset="your-applicationset-name"}
-
+](https://argo-cd.readthedocs.io/en/stable/operator-manual/metrics/)
 
 object-templates-raw: |
   {{ range $placedec := (lookup "cluster.open-cluster-management.io/v1beta1" "PlacementDecision" "openshift-gitops" "" "cluster.open-cluster-management.io/placement=aws-app-placement").items }}
