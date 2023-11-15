@@ -87,14 +87,34 @@ Take advantage of advanced scheduling capabilities with RHACM's integration with
 
 Visualize and analyze the health and performance of your multi-cluster environment through RHACM's optimized dashboards. Gain insights into the status of applications, clusters, and resources, facilitating informed decision-making.
 
-**Key Metrics to Monitor:**
+### Metrics for ArgoCD Cluster Info
+- argocd_cluster_info
+- argocd-server-metrics
+- argocd_app_info
+- argocd_app_sync_total
+- argocd_app_reconcile_count
+- argocd_app_reconcile_bucket
+- argocd_app_k8s_request_total
+- argocd_kubectl_exec_pending
+- argocd-metrics
+- argocd_cluster_api_resource_objects
+- argocd_cluster_api_resources
+- argocd_git_request_total
+- argocd_git_request_duration_seconds_bucket
+- argocd-repo-server
+- argocd_redis_request_total
 
-Here are some key metrics you might want to include in your Grafana dashboards for monitoring ApplicationSets:
+### Additional Metrics for ArgoCD ApplicationSets
+- argocd_appset_applied_total: Number of ApplicationSets successfully applied.
+- argocd_appset_applied_failed_total: Number of ApplicationSets that failed during the apply process.
+- argocd_appset_applied_duration_seconds_bucket: Histogram of the time taken to apply ApplicationSets.
+- argocd_appset_reconcile_total: Number of times ApplicationSets were reconciled.
+- argocd_appset_reconcile_failed_total: Number of times reconciliation of ApplicationSets failed.
+- argocd_appset_reconcile_duration_seconds_bucket: Histogram of the time taken to reconcile ApplicationSets.
 
-[- **ApplicationSet Sync Status:**
-  ```promql
-  argocd_app_set_sync_status{namespace="argocd", applicationset="your-applicationset-name"}
-](https://argo-cd.readthedocs.io/en/stable/operator-manual/metrics/)
+
+8
+
 
 object-templates-raw: |
   {{ range $placedec := (lookup "cluster.open-cluster-management.io/v1beta1" "PlacementDecision" "openshift-gitops" "" "cluster.open-cluster-management.io/placement=aws-app-placement").items }}
