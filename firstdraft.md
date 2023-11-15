@@ -113,9 +113,14 @@ Visualize and analyze the health and performance of your multi-cluster environme
 - argocd_appset_reconcile_duration_seconds_bucket: Histogram of the time taken to reconcile ApplicationSets.
 
 
-8
+## 8 Gatekeeper Integration
+ 
 
+## 9. Integration with Governance for Advanced Use Cases (object-raw-templates)
 
+Leverage RHACM's integration with Governance to implement advanced use cases, such as managing custom objects and raw templates. This flexibility empowers you to tailor your Kubernetes configurations to meet specific requirements.
+
+```yaml
 object-templates-raw: |
   {{ range $placedec := (lookup "cluster.open-cluster-management.io/v1beta1" "PlacementDecision" "openshift-gitops" "" "cluster.open-cluster-management.io/placement=aws-app-placement").items }}
   {{ range $clustdec := $placedec.status.decisions }}
@@ -138,12 +143,12 @@ object-templates-raw: |
   {{ end }}
   {{ end }}
 
+
 ## 10. Advanced Disaster Recovery Capabilities with ODF Integration
 
 Integrate RHACM with Open Data Foundation (ODF) for advanced Disaster Recovery (DR) capabilities. Ensure the resilience of your applications and data across clusters, minimizing downtime and providing a reliable solution for business continuity.
 
-## Summary
+## Summary ##
 
 Red Hat Advanced Cluster Management for Kubernetes (RHACM) stands out as a powerful solution for GitOps with ArgoCD. Whether you are looking for centralized control with a push model or decentralized flexibility with a pull model, RHACM has you covered. From UI-Support and MultiCluster Search to strong RBAC support and advanced disaster recovery capabilities with ODF integration, RHACM provides a feature-rich experience.
 
-Integrations with Managed Service Account, Governance, Placement, Gatekeeper, and ODF enhance the scalability, security, and ease of management of your Kubernetes deployments. Choose RHACM for a robust, user-friendly, and comprehensive solution to manage your multi-cluster environments effectively.
