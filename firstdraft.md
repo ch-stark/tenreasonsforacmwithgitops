@@ -88,6 +88,44 @@ Take advantage of advanced scheduling capabilities with RHACM's integration with
 
 Visualize and analyze the health and performance of your multi-cluster environment through RHACM's optimized dashboards. Gain insights into the status of applications, clusters, and resources, facilitating informed decision-making.
 
+Key Metrics to Monitor:
+
+Here are some key metrics you might want to include in your Grafana dashboards for monitoring ApplicationSets:
+
+ApplicationSet Sync Status:
+
+Monitor the synchronization status of ApplicationSets.
+ApplicationSet Sync Duration:
+
+Track how long it takes for ApplicationSets to synchronize.
+ApplicationSet Resources:
+
+Monitor the resource usage of ApplicationSets (CPU, Memory).
+ArgoCD Server Metrics:
+
+Metrics related to the overall health and performance of the ArgoCD server.
+Custom Queries and Alerts:
+
+Depending on your specific needs, you might want to create custom queries and alerts in Grafana. For example, you can set up alerts for failed syncs, resource usage spikes, or long synchronization durations.
+Example Grafana Dashboard Queries:
+ApplicationSet Sync Status:
+
+promql
+Copy code
+argocd_app_set_sync_status{namespace="argocd", applicationset="your-applicationset-name"}
+ApplicationSet Sync Duration:
+
+promql
+Copy code
+argocd_app_set_sync_duration_seconds{namespace="argocd", applicationset="your-applicationset-name"}
+ArgoCD Server Metrics:
+
+promql
+Copy code
+argocd_server_requests_duration_seconds
+Conclusion:
+Setting up monitoring for ApplicationSets involves a combination of Prometheus for scraping metrics and Grafana for visualization. The specific metrics you monitor and the thresholds for alerts will depend on your use case and requirements. Make sure to tailor your dashboards to provide actionable insights into the health and performance of your ApplicationSets within the ArgoCD ecosystem.
+
 ## 8. Supported Gatekeeper Integration
 
 RHACM seamlessly integrates with Gatekeeper, allowing you to enforce policies and ensure compliance across clusters. This integration enhances the security and reliability of your Kubernetes deployments.
