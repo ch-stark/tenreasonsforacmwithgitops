@@ -165,7 +165,31 @@ When applied to ApplicationSets, Gatekeeper Constraints can enforce policies rel
 
 ConstraintTemplates serve as blueprints, allowing administrators to define and customize policies according to their specific requirements. By employing Gatekeeper Constraints and ConstraintTemplates, organizations can maintain a standardized and secure environment, streamline deployment processes, and enhance overall cluster governance for ApplicationSets in Kubernetes. This approach contributes to efficient resource utilization and facilitates a more controlled and resilient Kubernetes ecosystem.
 
+See here a Gatekeeper-Example:
 
+```yaml
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: k8snoappindefaultargoproject
+  annotations:
+    description: >-
+      Restricts any ArgoCD Applications to be created in default ArgoCD project
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sNoAppInDefaultArgoProject
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8snoappindefaultargoproject
+        violation[{"msg": def_msg}] {
+          name := input.review.object.metadata.name
+          mySpec := input.review.object.spec
+          mySpec.project == "default"
+          def_msg := sprintf("Error: `%v` ArgoCD Application is not permitted to use default ArgoCD project.",[name])
+        }
 
 ## 9. Integration with Governance for Advanced Use Cases (object-raw-templates)
 
