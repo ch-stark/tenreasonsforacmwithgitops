@@ -155,6 +155,30 @@ Visualize and analyze the health and performance of your multi-cluster environme
 - argocd_appset_reconcile_failed_total: Number of times reconciliation of ApplicationSets failed.
 - argocd_appset_reconcile_duration_seconds_bucket: Histogram of the time taken to reconcile ApplicationSets.
 
+cat >observability-metrics-custom-allowlist.yaml<<YAML
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: observability-metrics-custom-allowlist
+data:
+  metrics_list.yaml: |
+    names:
+      - argocd_cluster_info
+      - argocd-server-metrics
+      - argocd_app_info
+      - argocd_app_sync_total
+      - argocd_app_reconcile_count
+      - argocd_app_reconcile_bucket
+      - argocd_app_k8s_request_total
+      - argocd_kubectl_exec_pending
+      - argocd-metrics
+      - argocd_cluster_api_resource_objects
+      - argocd_cluster_api_resources
+      - argocd_git_request_total
+      - argocd_git_request_duration_seconds_bucket
+      - argocd-repo-server
+      - argocd_redis_request_total
+YAML
 
 ## 8 Gatekeeper Integration
  
