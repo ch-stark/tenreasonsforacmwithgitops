@@ -8,19 +8,19 @@ While ArgoCD's UI is not designed for MultiCluster-Management, RHACM offers a us
 
 Efficiently locate and manage resources across multiple clusters with RHACM's integrated MultiCluster Search. This feature empowers administrators to quickly identify and act upon resources, enhancing the overall observability and control of the Kubernetes landscape.
 
+![Search 1](search_1.png)
+
+![Search 2](search_2.png)
 
 ## 3. Pull-Model Option
 
 RHACM supports a pull-model option, allowing you to synchronize configurations from Git repositories using ArgoCD. This flexibility enables you to choose the workflow that best fits your organizational needs, whether it's a pull or push model. Enjoy the benefits of the Pull-Model option, such as enhanced performance, managing GitOps installations with policies, and comprehensive AppSet summary reports. 
 
-**Advantages of the Pull-Model:**
-
 The advantage of the pull model is decentralized control, where each cluster has its own copy of the configuration and is responsible for pulling updates independently. The hub-managed architecture using Argo CD and the pull model can reduce the need for a centralized system to manage the configurations of all target clusters, making the system more scalable and easier to manage. However, note that the hub cluster itself still represents a potential single point of failure, which you should address through redundancy or other means.
 
 Additionally, the pull model provides more flexibility, allowing clusters to pull updates on their schedule and reducing the risk of conflicts or disruptions.
 
-For more details see:  see also https://cloud.redhat.com/blog/introducing-the-argo-cd-application-pull-controller-for-red-hat-advanced-cluster-management
-
+For more details see also https://cloud.redhat.com/blog/introducing-the-argo-cd-application-pull-controller-for-red-hat-advanced-cluster-management
 
 
 ## 4. Integration with Cluster Lifecycle
@@ -49,8 +49,7 @@ spec:
 
 Before the new feature, end-users use a cluster admin SA to deploy applications when using ArgoCD push model in ACM. With the new feature, end-users can deploy applications using a customized service account with specific permissions.
 
-**Leveraging Managed-Service-Account:**
-Managed Service Account is an OCM addon enabling a hub cluster admin to manage service accounts across multiple clusters with ease. By controlling the creation and removal of the service account, the addon agent will monitor and rotate the corresponding token back to the hub cluster. To grant permissions to the new service account, we leverage the new cluster permission resource.
+The Managed Service Account is an OCM addon enabling a hub cluster admin to manage service accounts across multiple clusters with ease. By controlling the creation and removal of the service account, the addon agent will monitor and rotate the corresponding token back to the hub cluster. To grant permissions to the new service account, we leverage the new cluster permission resource.
 
 ```
 apiVersion: operator.open-cluster-management.io/v1
@@ -73,8 +72,7 @@ spec:
         name: cluster-permission
 ```
 
-learn here how to setup via Policies https://github.com/ch-stark/enable-managed-service-account
-
+learn [here](https://github.com/ch-stark/enable-managed-service-account) how to set this up via Policies. 
 
 
 ```yaml
@@ -111,7 +109,7 @@ spec:
 
 Take advantage of advanced scheduling capabilities with RHACM's integration with Placement. Efficiently distribute workloads across clusters based on defined policies, optimizing resource utilization and improving overall cluster performance.
 
-See here an example of a Placement which is configured (getting question more often) to tolerate temporary cluster-unavailablity:
+See here an example of a Placement which is configured to tolerate temporary cluster-unavailablity:
 
 ```yaml
 apiVersion: cluster.open-cluster-management.io/v1beta1
@@ -130,30 +128,7 @@ spec:
 
 Visualize and analyze the health and performance of your multi-cluster environment through RHACM's optimized dashboards. Gain insights into the status of applications, clusters, and resources, facilitating informed decision-making.
 
-### Metrics for ArgoCD Cluster Info
-- argocd_cluster_info
-- argocd-server-metrics
-- argocd_app_info
-- argocd_app_sync_total
-- argocd_app_reconcile_count
-- argocd_app_reconcile_bucket
-- argocd_app_k8s_request_total
-- argocd_kubectl_exec_pending
-- argocd-metrics
-- argocd_cluster_api_resource_objects
-- argocd_cluster_api_resources
-- argocd_git_request_total
-- argocd_git_request_duration_seconds_bucket
-- argocd-repo-server
-- argocd_redis_request_total
-
-### Additional Metrics for ArgoCD ApplicationSets
-- argocd_appset_applied_total: Number of ApplicationSets successfully applied.
-- argocd_appset_applied_failed_total: Number of ApplicationSets that failed during the apply process.
-- argocd_appset_applied_duration_seconds_bucket: Histogram of the time taken to apply ApplicationSets.
-- argocd_appset_reconcile_total: Number of times ApplicationSets were reconciled.
-- argocd_appset_reconcile_failed_total: Number of times reconciliation of ApplicationSets failed.
-- argocd_appset_reconcile_duration_seconds_bucket: Histogram of the time taken to reconcile ApplicationSets.
+In the following we create a Dashboard to display ArgoCD:
 
 cat >observability-metrics-custom-allowlist.yaml<<YAML
 kind: ConfigMap
@@ -178,12 +153,18 @@ data:
       - argocd_git_request_duration_seconds_bucket
       - argocd-repo-server
       - argocd_redis_request_total
+      - argocd_appset_applied_total
+      - argocd_appset_applied_failed_total
+      - argocd_appset_applied_duration_seconds_bucket.
+      - argocd_appset_reconcile_total
+      - argocd_appset_reconcile_failed_total
+      - argocd_appset_reconcile_duration_seconds_bucket
 YAML
 
 ## 8 Gatekeeper Integration
  
 
-ApplicationSets in Kubernetes can be effectively managed and controlled through Gatekeeper Constraints and ConstraintTemplates. Gatekeeper is a policy controller that enforces policies in a Kubernetes cluster, ensuring that resources adhere to specific rules. ConstraintTemplates define the structure and parameters of policies, while Constraints are instances of these templates applied to specific resources.
+ApplicationSets in Kubernetes can be effectively managed and controlled through Gatekeeper Constraints and ConstraintTemplates which are supported with ACM/OpenShiftPlus. Gatekeeper is a policy controller that enforces policies in a Kubernetes cluster, ensuring that resources adhere to specific rules. ConstraintTemplates define the structure and parameters of policies, while Constraints are instances of these templates applied to specific resources.
 
 When applied to ApplicationSets, Gatekeeper Constraints can enforce policies related to their creation, configuration, and behavior. For instance, constraints can dictate that all ApplicationSets must include certain labels, use specific image versions, or comply with security standards. This ensures consistency and compliance across diverse applications within the cluster.
 
@@ -250,3 +231,13 @@ Integrate RHACM with Open Data Foundation (ODF) for advanced Disaster Recovery (
 ## Summary ##
 
 Red Hat Advanced Cluster Management for Kubernetes (RHACM) stands out as a powerful solution for GitOps with ArgoCD. Whether you are looking for centralized control with a push model or decentralized flexibility with a pull model, RHACM has you covered. From UI-Support and MultiCluster Search to strong RBAC support and advanced disaster recovery capabilities with ODF integration, RHACM provides a feature-rich experience.
+
+
+
+
+
+
+
+
+
+
