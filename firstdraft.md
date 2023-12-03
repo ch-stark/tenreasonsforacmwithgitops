@@ -4,6 +4,9 @@
 
 While ArgoCD's UI is not designed for MultiCluster-Management, RHACM offers a user-friendly interface with support for ApplicationSets, allowing you to define and manage multiple applications across clusters. The Single Pane of Glass view provides a consolidated overview of your entire multi-cluster environment, simplifying the monitoring and management of applications.
 
+![Applications](application.png)
+
+
 ## 2. Integration with MultiCluster Search
 
 Efficiently locate and manage resources across multiple clusters with RHACM's integrated MultiCluster Search. This feature empowers administrators to quickly identify and act upon resources, enhancing the overall observability and control of the Kubernetes landscape.
@@ -20,16 +23,16 @@ The advantage of the pull model is decentralized control, where each cluster has
 
 Additionally, the pull model provides more flexibility, allowing clusters to pull updates on their schedule and reducing the risk of conflicts or disruptions.
 
-For more details see also https://cloud.redhat.com/blog/introducing-the-argo-cd-application-pull-controller-for-red-hat-advanced-cluster-management
+For more details see also the previous [blog](https://cloud.redhat.com/blog/introducing-the-argo-cd-application-pull-controller-for-red-hat-advanced-cluster-management)
 
 
 ## 4. Integration with Cluster Lifecycle
 
-Streamline the cluster lifecycle management with RHACM's integrated tools. When you integrate with the GitOps operator for every managed cluster that is bound to the GitOps namespace through the placement and ManagedClusterSetBinding custom resources, a secret with a token to access the ManagedCluster is created in the namespace. This is required for the GitOps controller to sync resources to the managed cluster. When a user is given administrator access to a GitOps namespace to perform application lifecycle operations, the user also gains access to this secret and admin level to the managed cluster.
+Simplify cluster lifecycle management using RHACM's integrated tools. Integration with the GitOps operator involves binding every managed cluster to the GitOps namespace through custom resources like Placement and ManagedClusterSetBinding. This creates a secret containing a token for accessing the ManagedCluster in the respective namespace. The secret is crucial for the GitOps controller to synchronize resources with the managed cluster. When a user is granted administrator access to a GitOps namespace for application lifecycle tasks, they also obtain access to this secret and administrative privileges over the managed cluster.
 
-Create a GitOpsCluster custom resource to register the set of managed clusters from the placement decision to the specified instance of OpenShift GitOps. This enables the OpenShift GitOps instance to deploy applications to any of those Red Hat Advanced Cluster Management managed clusters. Use the multicloud-integrations GitOps cluster example.
+To register a set of managed clusters from the placement decision to a specific instance of OpenShift GitOps, create a GitOpsCluster custom resource. This allows the OpenShift GitOps instance to deploy applications to any managed clusters within Red Hat Advanced Cluster Management. The multicloud-integrations GitOps cluster example can be used as a reference.
 
-Note: The referenced Placement resource must be in the same namespace as the GitOpsCluster resource. See the following example:
+Note: Ensure that the referenced Placement resource is in the same namespace as the GitOpsCluster resource. Refer to the following example:
 
 apiVersion: apps.open-cluster-management.io/v1beta1
 kind: GitOpsCluster
@@ -161,6 +164,11 @@ data:
       - argocd_appset_reconcile_duration_seconds_bucket
 YAML
 
+
+See here an example how a dashboard might look like: 
+
+![Dashboard](dashboard.png)
+
 ## 8 Gatekeeper Integration
  
 
@@ -195,6 +203,10 @@ spec:
           mySpec.project == "default"
           def_msg := sprintf("Error: `%v` ArgoCD Application is not permitted to use default ArgoCD project.",[name])
         }
+
+Learn [here](https://github.com/ch-stark/gatekeeper-examples) how to use Gatekeeper with RHACM
+
+
 
 ## 9. Integration with Governance for Advanced Use Cases (object-raw-templates)
 
