@@ -34,6 +34,7 @@ To register a set of managed clusters from the placement decision to a specific 
 
 Note: Ensure that the referenced Placement resource is in the same namespace as the GitOpsCluster resource. Refer to the following example:
 
+```
 apiVersion: apps.open-cluster-management.io/v1beta1
 kind: GitOpsCluster
 metadata:
@@ -47,6 +48,7 @@ spec:
     kind: Placement
     apiVersion: cluster.open-cluster-management.io/v1beta1
     name: all-openshift-clusters 1
+```
 
 ## 5. Strong Built-in RBAC Support with Centralized Push Model
 
@@ -78,7 +80,7 @@ spec:
 learn [here](https://github.com/ch-stark/enable-managed-service-account) how to set this up via Policies. 
 
 
-```yaml
+```
 apiVersion: rbac.open-cluster-management.io/v1alpha1
 kind: ClusterPermission
 metadata:
@@ -107,6 +109,7 @@ spec:
       apiGroup: authentication.open-cluster-management.io
       kind: ManagedServiceAccount
       name: managed-sa-sample
+```
 
 ## 6. Integration with Placement for Advanced MultiCluster Scheduling
 
@@ -114,7 +117,7 @@ Take advantage of advanced scheduling capabilities with RHACM's integration with
 
 See here an example of a Placement which is configured to tolerate temporary cluster-unavailablity:
 
-```yaml
+```
 apiVersion: cluster.open-cluster-management.io/v1beta1
 kind: Placement
 metadata:
@@ -126,6 +129,7 @@ spec:
       operator: Exists
     - key: cluster.open-cluster-management.io/unavailable
       operator: Exists
+```
 
 ## 7. MultiCluster Optimized Dashboards
 
@@ -133,7 +137,8 @@ Visualize and analyze the health and performance of your multi-cluster environme
 
 In the following we create a Dashboard to display ArgoCD:
 
-cat >observability-metrics-custom-allowlist.yaml<<YAML
+```
+cat >observability-metrics-custom-allowlist.yaml<<
 kind: ConfigMap
 apiVersion: v1
 metadata:
@@ -162,7 +167,7 @@ data:
       - argocd_appset_reconcile_total
       - argocd_appset_reconcile_failed_total
       - argocd_appset_reconcile_duration_seconds_bucket
-YAML
+```
 
 
 See here an example how a dashboard might look like: 
@@ -180,7 +185,7 @@ ConstraintTemplates serve as blueprints, allowing administrators to define and c
 
 See here a Gatekeeper-Example:
 
-```yaml
+```
 apiVersion: templates.gatekeeper.sh/v1
 kind: ConstraintTemplate
 metadata:
@@ -203,6 +208,7 @@ spec:
           mySpec.project == "default"
           def_msg := sprintf("Error: `%v` ArgoCD Application is not permitted to use default ArgoCD project.",[name])
         }
+```
 
 Learn [here](https://github.com/ch-stark/gatekeeper-examples) how to use Gatekeeper with RHACM
 
@@ -212,7 +218,7 @@ Learn [here](https://github.com/ch-stark/gatekeeper-examples) how to use Gatekee
 
 Leverage RHACM's integration with Governance to implement advanced use cases, such as managing custom objects and raw templates. This flexibility empowers you to tailor your Kubernetes configurations to meet specific requirements.
 
-```yaml
+```
 object-templates-raw: |
   {{ range $placedec := (lookup "cluster.open-cluster-management.io/v1beta1" "PlacementDecision" "openshift-gitops" "" "cluster.open-cluster-management.io/placement=aws-app-placement").items }}
   {{ range $clustdec := $placedec.status.decisions }}
@@ -234,7 +240,7 @@ object-templates-raw: |
         namespace: {{ $clustdec.clusterName }}
   {{ end }}
   {{ end }}
-
+```
 
 ## 10. Advanced Disaster Recovery Capabilities with ODF Integration
 
