@@ -1,5 +1,9 @@
 # 10 Reasons to Choose Red Hat Advanced Cluster Management (RHACM) for GitOps with ArgoCD
 
+RHACM had made efforts to integrate GitopsOperator (RedHats downstream version of ArgoCD) and in the following we would like to highlight shortly
+why it is of benefit to use both together rather then running GitopsOperator standalone.
+
+
 ## 1. UI-Support for ApplicationSets, and getting all relevant info from a "Single Pane of Glass"
 
 While ArgoCD's UI is not designed for MultiCluster-Management, RHACM offers a user-friendly interface with support for ApplicationSets, allowing you to define and manage multiple applications across clusters. The Single Pane of Glass view provides a consolidated overview of your entire multi-cluster environment, simplifying the monitoring and management of applications.
