@@ -1,19 +1,19 @@
 # 10 Reasons to Choose Red Hat Advanced Cluster Management (RHACM) for GitOps with ArgoCD
 
-RHACM had made efforts to integrate GitopsOperator (RedHats downstream version of ArgoCD) and in the following we would like to highlight shortly
-why it is of benefit to use both together rather then running GitopsOperator standalone.
+Utilizing Red Hat Advanced Cluster Management (RHACM) for GitOps in conjunction with ArgoCD brings about a synergistic integration. In particular, we'd like to emphasize the advantages of combining these tools, specifically GitopsOperator (Red Hat's downstream version of ArgoCD). By doing so, you unlock enhanced benefits compared to running GitopsOperator as a standalone solution. This collaborative approach not only optimizes functionality but also streamlines the overall GitOps experience, showcasing the added value of this integrated setup.
 
 
 ## 1. UI-Support for ApplicationSets, and getting all relevant info from a "Single Pane of Glass"
 
-While ArgoCD's UI is not designed for MultiCluster-Management, RHACM offers a user-friendly interface with support for ApplicationSets, allowing you to define and manage multiple applications across clusters. The Single Pane of Glass view provides a consolidated overview of your entire multi-cluster environment, simplifying the monitoring and management of applications.
+While ArgoCD's user interface isn't explicitly designed for MultiCluster-Management, RHACM fills the gap by offering a user-friendly interface equipped with the capability to handle ApplicationSets. This feature enables you to efficiently define and manage multiple applications across clusters. The Single Pane of Glass view takes the complexity out of monitoring and managing applications, providing a consolidated and streamlined overview of your entire multi-cluster environment. In essence, RHACM enhances the user experience by simplifying the intricacies of multi-cluster application management.
 
 ![Applications](application.png)
 
 
 ## 2. Integration with MultiCluster Search
 
-Efficiently locate and manage resources across multiple clusters with RHACM's integrated MultiCluster Search. This feature empowers administrators to quickly identify and act upon resources, enhancing the overall observability and control of the Kubernetes landscape.
+Effectively discover and manage resources across multiple clusters with the integrated MultiCluster Search feature in RHACM. This capability empowers administrators to promptly identify and take action on resources, thereby enhancing the overall observability and control of the Kubernetes landscape.
+
 
 ![Search 1](search_1.png)
 
@@ -21,22 +21,27 @@ Efficiently locate and manage resources across multiple clusters with RHACM's in
 
 ## 3. Pull-Model Option
 
-RHACM supports a pull-model option, allowing you to synchronize configurations from Git repositories using ArgoCD. This flexibility enables you to choose the workflow that best fits your organizational needs, whether it's a pull or push model. Enjoy the benefits of the Pull-Model option, such as enhanced performance, managing GitOps installations with policies, and comprehensive AppSet summary reports. 
+**RHACM Pull-Model Option: Enhancing Flexibility and Control**
 
-The advantage of the pull model is decentralized control, where each cluster has its own copy of the configuration and is responsible for pulling updates independently. The hub-managed architecture using Argo CD and the pull model can reduce the need for a centralized system to manage the configurations of all target clusters, making the system more scalable and easier to manage. However, note that the hub cluster itself still represents a potential single point of failure, which you should address through redundancy or other means.
+RHACM supports a pull-model option, enabling you to synchronize configurations from Git repositories using ArgoCD without requiring the Hub to connect to the spokes. This flexibility allows you to choose the workflow that best fits your organizational needs, be it a pull or push model. Enjoy various benefits offered by the Pull-Model option, such as enhanced performance, managing GitOps installations with policies, and detailed AppSet summary reports.
 
-Additionally, the pull model provides more flexibility, allowing clusters to pull updates on their schedule and reducing the risk of conflicts or disruptions.
+*Advantages of the Pull Model: Decentralized Control*
 
-For more details see also the previous [blog](https://cloud.redhat.com/blog/introducing-the-argo-cd-application-pull-controller-for-red-hat-advanced-cluster-management)
+The pull model decentralizes control, where each cluster possesses its copy of the configuration and is responsible for independently pulling updates. The hub-managed architecture, incorporating Argo CD and the pull model, reduces the need for a centralized system to manage configurations across target clusters, enhancing scalability and simplifying overall system management. Note that while the hub cluster minimizes single points of failure, it's essential to address this potential concern through redundancy or other means.
+
+*Flexibility and Reduced Risks*
+
+The pull model provides increased flexibility, allowing clusters to pull updates according to their schedule, thereby minimizing the risk of conflicts or disruptions.
+
+For more detailed information, you can refer to our [blog post](https://cloud.redhat.com/blog/introducing-the-argo-cd-application-pull-controller-for-red-hat-advanced-cluster-management).
+
 
 
 ## 4. Integration with Cluster Lifecycle
 
-Simplify cluster lifecycle management using RHACM's integrated tools. Integration with the GitOps operator involves binding every managed cluster to the GitOps namespace through custom resources like Placement and ManagedClusterSetBinding. This creates a secret containing a token for accessing the ManagedCluster in the respective namespace. The secret is crucial for the GitOps controller to synchronize resources with the managed cluster. When a user is granted administrator access to a GitOps namespace for application lifecycle tasks, they also obtain access to this secret and administrative privileges over the managed cluster.
+Simplify cluster lifecycle management with RHACM's integrated tools. Binding managed clusters to the GitOps namespace via custom resources like Placement and ManagedClusterSetBinding creates a crucial token-containing secret for synchronization with GitOps. Admin access to the GitOps namespace grants privileges over the managed cluster.
 
-To register a set of managed clusters from the placement decision to a specific instance of OpenShift GitOps, create a GitOpsCluster custom resource. This allows the OpenShift GitOps instance to deploy applications to any managed clusters within Red Hat Advanced Cluster Management. The multicloud-integrations GitOps cluster example can be used as a reference.
-
-Note: Ensure that the referenced Placement resource is in the same namespace as the GitOpsCluster resource. Refer to the following example:
+To register clusters for deployment through OpenShift GitOps, use the GitOpsCluster custom resource. This allows deploying applications to any managed cluster within RHACM. Refer to the example below:
 
 ```
 apiVersion: apps.open-cluster-management.io/v1beta1
@@ -51,14 +56,14 @@ spec:
   placementRef:
     kind: Placement
     apiVersion: cluster.open-cluster-management.io/v1beta1
-    name: all-openshift-clusters 1
+    name: all-openshift-clusters 
 ```
 
 ## 5. Strong Built-in RBAC Support with Centralized Push Model
 
-Before the new feature, end-users use a cluster admin SA to deploy applications when using ArgoCD push model in ACM. With the new feature, end-users can deploy applications using a customized service account with specific permissions.
+Previously, in the ArgoCD push model within ACM, end-users utilized a cluster admin SA to deploy applications. Now, with the introduction of a new feature, end-users can deploy applications using a customized service account with specific permissions.
 
-The Managed Service Account is an OCM addon enabling a hub cluster admin to manage service accounts across multiple clusters with ease. By controlling the creation and removal of the service account, the addon agent will monitor and rotate the corresponding token back to the hub cluster. To grant permissions to the new service account, we leverage the new cluster permission resource.
+The Managed Service Account, an OCM addon, facilitates seamless management of service accounts across multiple clusters for hub cluster admins. The addon agent monitors and rotates the token by controlling the creation and removal of the service account, ensuring security back to the hub cluster. Granting permissions to the new service account is achieved through the utilization of the new cluster permission resource.
 
 ```
 apiVersion: operator.open-cluster-management.io/v1
@@ -137,9 +142,9 @@ spec:
 
 ## 7. MultiCluster Optimized Dashboards
 
-Visualize and analyze the health and performance of your multi-cluster environment through RHACM's optimized dashboards. Gain insights into the status of applications, clusters, and resources, facilitating informed decision-making.
+Effortlessly visualize and analyze the health and performance of your multi-cluster environment with RHACM's optimized dashboards. Take command of your data visualization experience by creating your own dashboards in a managed and controlled way using a Grafana-Developer instance which you can later bring into production.
 
-In the following we create a Dashboard to display ArgoCD:
+These purpose-built dashboards provide valuable insights into the status of applications, clusters, and resources, enabling informed decision-making. Let's now proceed to create a customized dashboard tailored for visualizing ArgoCD:
 
 ```
 cat >observability-metrics-custom-allowlist.yaml<<
@@ -181,11 +186,7 @@ See here an example how a dashboard might look like:
 ## 8 Gatekeeper Integration
  
 
-ApplicationSets in Kubernetes can be effectively managed and controlled through Gatekeeper Constraints and ConstraintTemplates which are supported with ACM/OpenShiftPlus. Gatekeeper is a policy controller that enforces policies in a Kubernetes cluster, ensuring that resources adhere to specific rules. ConstraintTemplates define the structure and parameters of policies, while Constraints are instances of these templates applied to specific resources.
-
-When applied to ApplicationSets, Gatekeeper Constraints can enforce policies related to their creation, configuration, and behavior. For instance, constraints can dictate that all ApplicationSets must include certain labels, use specific image versions, or comply with security standards. This ensures consistency and compliance across diverse applications within the cluster.
-
-ConstraintTemplates serve as blueprints, allowing administrators to define and customize policies according to their specific requirements. By employing Gatekeeper Constraints and ConstraintTemplates, organizations can maintain a standardized and secure environment, streamline deployment processes, and enhance overall cluster governance for ApplicationSets in Kubernetes. This approach contributes to efficient resource utilization and facilitates a more controlled and resilient Kubernetes ecosystem.
+Effectively manage Kubernetes ApplicationSets with ACM/OpenShiftPlus using Gatekeeper Constraints and ConstraintTemplates. Gatekeeper enforces policies, ensuring adherence to rules, with ConstraintTemplates defining policy structures. Applied to ApplicationSets, Gatekeeper Constraints enforce policies for consistency in creation, configuration, and behavior, fostering standardized and compliant applications. ConstraintTemplates act as blueprints, enabling administrators to customize policies, establishing a controlled, secure, and streamlined environment for Kubernetes deployments.
 
 See here a Gatekeeper-Example:
 
@@ -246,6 +247,33 @@ object-templates-raw: |
   {{ end }}
 ```
 
+The below example just allows manual sync for app-projects:
+
+```
+object-templates-raw: >
+  {{- range $appproj := (lookup "argoproj.io/v1alpha1" "AppProject" "openshift-gitops" "").items }}
+  - complianceType: musthave
+    objectDefinition:
+      apiVersion: argoproj.io/v1alpha1
+      kind: AppProject
+      metadata:
+        name: '{{ $appproj.metadata.name }}'
+        namespace: openshift-gitops
+      spec:
+        syncWindows:
+          - kind: deny
+            schedule: '* * * * *'
+            duration: 24h 
+            manualSync: true
+            clusters:   
+              - '*'
+            applications:
+              - '*'
+            namespaces:
+              - '*'
+  {{- end }}
+```
+
 ## 10. Advanced Disaster Recovery Capabilities with ODF Integration
 
 Integrate RHACM with Open Data Foundation (ODF) for advanced Disaster Recovery (DR) capabilities. Ensure the resilience of your applications and data across clusters, minimizing downtime and providing a reliable solution for business continuity.
@@ -253,13 +281,3 @@ Integrate RHACM with Open Data Foundation (ODF) for advanced Disaster Recovery (
 ## Summary ##
 
 Red Hat Advanced Cluster Management for Kubernetes (RHACM) stands out as a powerful solution for GitOps with ArgoCD. Whether you are looking for centralized control with a push model or decentralized flexibility with a pull model, RHACM has you covered. From UI-Support and MultiCluster Search to strong RBAC support and advanced disaster recovery capabilities with ODF integration, RHACM provides a feature-rich experience.
-
-
-
-
-
-
-
-
-
-
