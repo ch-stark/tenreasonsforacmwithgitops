@@ -278,6 +278,14 @@ object-templates-raw: >
 
 Integrate RHACM with Open Data Foundation (ODF) for advanced Disaster Recovery (DR) capabilities. Ensure the resilience of your applications and data across clusters, minimizing downtime and providing a reliable solution for business continuity.
 
+See here how to configure failover for Application-Sets in the UI using ODF:
+
+![Configure ManagedDataPolicy](managedatapolicy.png)
+
+![Configure Failover](failover1.png)
+
+
+
 ## Summary ##
 
 Red Hat Advanced Cluster Management for Kubernetes (RHACM) stands out as a powerful solution for GitOps with ArgoCD. Whether you are looking for centralized control with a push model or decentralized flexibility with a pull model, RHACM has you covered. From UI-Support and MultiCluster Search to strong RBAC support and advanced disaster recovery capabilities with ODF integration, RHACM provides a feature-rich experience.
