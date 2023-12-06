@@ -144,7 +144,7 @@ spec:
 
 Effortlessly visualize and analyze the health and performance of your multi-cluster environment with RHACM's optimized dashboards. Take command of your data visualization experience by creating your own dashboards in a managed and controlled way using a Grafana-Developer instance which you can later bring into production.
 
-These purpose-built dashboards provide valuable insights into the status of applications, clusters, and resources, enabling informed decision-making. Let's now proceed to create a customized dashboard tailored for visualizing ArgoCD:
+These purpose-built dashboards provide valuable insights into the status of applications, clusters, and resources, enabling informed decision-making. Let's now proceed to create a customized dashboard tailored for visualizing ArgoCD using some well documented [ArgoCD-metrics](https://argo-cd.readthedocs.io/en/stable/operator-manual/metrics/):
 
 ```
 cat >observability-metrics-custom-allowlist.yaml<<
