@@ -88,7 +88,6 @@ spec:
 
 learn [here](https://github.com/ch-stark/enable-managed-service-account) how to set this up via Policies. 
 
-
 ```
 apiVersion: rbac.open-cluster-management.io/v1alpha1
 kind: ClusterPermission
@@ -123,6 +122,17 @@ spec:
 ## 6. Integration with Placement for Advanced MultiCluster Scheduling
 
 Take advantage of advanced scheduling capabilities with RHACM's integration with Placement. Efficiently distribute workloads across clusters based on defined policies, optimizing resource utilization and improving overall cluster performance.
+
+# Placement
+
+Discover the extensive capabilities of [Placement](https://open-cluster-management.io/concepts/placement/).  
+
+Notable features include:
+
+- **Scoring-Based Prioritization:** Efficiently prioritize resources using a scoring mechanism.
+- **Extensibility:** Customize and extend Placement to suit specific requirements.
+- **Rollout Strategy:** Implement strategic rollout plans for optimal resource deployment.
+- **Spread:** Ensure even distribution of resources across your environment.
 
 See here an example of a Placement which is configured to tolerate temporary cluster-unavailablity:
 
@@ -185,7 +195,6 @@ See here an example how a dashboard might look like:
 
 ## 8 Gatekeeper Integration
  
-
 Effectively manage Kubernetes ApplicationSets with ACM/OpenShiftPlus using Gatekeeper Constraints and ConstraintTemplates. Gatekeeper enforces policies, ensuring adherence to rules, with ConstraintTemplates defining policy structures. Applied to ApplicationSets, Gatekeeper Constraints enforce policies for consistency in creation, configuration, and behavior, fostering standardized and compliant applications. ConstraintTemplates act as blueprints, enabling administrators to customize policies, establishing a controlled, secure, and streamlined environment for Kubernetes deployments.
 
 See here a Gatekeeper-Example:
@@ -216,8 +225,6 @@ spec:
 ```
 
 Learn [here](https://github.com/ch-stark/gatekeeper-examples) how to use Gatekeeper with RHACM
-
-
 
 ## 9. Integration with Governance for Advanced Use Cases (object-raw-templates)
 
@@ -283,8 +290,6 @@ See here how to configure failover for Application-Sets in the UI using ODF:
 ![Configure ManagedDataPolicy](managedatapolicy.png)
 
 ![Configure Failover](failover1.png)
-
-
 
 ## Summary ##
 
