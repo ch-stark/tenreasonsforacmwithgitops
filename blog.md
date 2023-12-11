@@ -123,9 +123,7 @@ spec:
 
 Take advantage of advanced scheduling capabilities with RHACM's integration with Placement. Efficiently distribute workloads across clusters based on defined policies, optimizing resource utilization and improving overall cluster performance.
 
-# Placement
-
-Discover the extensive capabilities of [Placement](https://open-cluster-management.io/concepts/placement/).  
+Discover the extensive capabilities of Placement [here](https://open-cluster-management.io/concepts/placement/) .  
 
 Notable features include:
 
