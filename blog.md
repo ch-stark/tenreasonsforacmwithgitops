@@ -1,11 +1,11 @@
-# 10 Reasons to Choose Red Hat Advanced Cluster Management (RHACM) for GitOps with ArgoCD
+# 10 Reasons to Choose Red Hat Advanced Cluster Management (RHACM) for GitOps with Argo CD
 
-Utilizing Red Hat Advanced Cluster Management (RHACM) for GitOps in conjunction with ArgoCD brings about a synergistic integration. In particular, we'd like to emphasize the advantages of combining these tools, specifically GitopsOperator (Red Hat's downstream version of ArgoCD). By doing so, you unlock enhanced benefits compared to running GitopsOperator as a standalone solution. This collaborative approach not only optimizes functionality but also streamlines the overall GitOps experience, showcasing the added value of this integrated setup.
+Utilizing Red Hat Advanced Cluster Management (RHACM) for GitOps in conjunction with Argo CD brings about a synergistic integration. In particular, we'd like to emphasize the advantages of combining these tools, specifically GitopsOperator (Red Hat's downstream version of Argo CD). By doing so, you unlock enhanced benefits compared to running GitopsOperator as a standalone solution. This collaborative approach not only optimizes functionality but also streamlines the overall GitOps experience, showcasing the added value of this integrated setup.
 
 
 ## 1. UI-Support for ApplicationSets, and getting all relevant info from a "Single Pane of Glass"
 
-While ArgoCD's user interface isn't explicitly designed for MultiCluster-Management, RHACM fills the gap by offering a user-friendly interface equipped with the capability to handle ApplicationSets. This feature enables you to efficiently define and manage multiple applications across clusters. The Single Pane of Glass view takes the complexity out of monitoring and managing applications, providing a consolidated and streamlined overview of your entire multi-cluster environment. In essence, RHACM enhances the user experience by simplifying the intricacies of multi-cluster application management.
+While Argo CD's user interface isn't explicitly designed for MultiCluster-Management, RHACM fills the gap by offering a user-friendly interface equipped with the capability to handle ApplicationSets. This feature enables you to efficiently define and manage multiple applications across clusters. The Single Pane of Glass view takes the complexity out of monitoring and managing applications, providing a consolidated and streamlined overview of your entire multi-cluster environment. In essence, RHACM enhances the user experience by simplifying the intricacies of multi-cluster application management.
 
 ![Applications](application.png)
 
@@ -23,7 +23,7 @@ Effectively discover and manage resources across multiple clusters with the inte
 
 **RHACM Pull-Model Option: Enhancing Flexibility and Control**
 
-RHACM supports a pull-model option, enabling you to synchronize configurations from Git repositories using ArgoCD without requiring the Hub to connect to the spokes. This flexibility allows you to choose the workflow that best fits your organizational needs, be it a pull or push model. Enjoy various benefits offered by the Pull-Model option, such as enhanced performance, managing GitOps installations with policies, and detailed AppSet summary reports.
+RHACM supports a pull-model option, enabling you to synchronize configurations from Git repositories using Argo CD without requiring the Hub to connect to the spokes. This flexibility allows you to choose the workflow that best fits your organizational needs, be it a pull or push model. Enjoy various benefits offered by the Pull-Model option, such as enhanced performance, managing GitOps installations with policies, and detailed AppSet summary reports.
 
 *Advantages of the Pull Model: Decentralized Control*
 
@@ -61,7 +61,7 @@ spec:
 
 ## 5. Strong Built-in RBAC Support with Centralized Push Model
 
-Previously, in the ArgoCD push model within ACM, end-users utilized a cluster admin SA to deploy applications. Now, with the introduction of a new feature, end-users can deploy applications using a customized service account with specific permissions.
+Previously, in the Argo CD push model within ACM, end-users utilized a cluster admin SA to deploy applications. Now, with the introduction of a new feature, end-users can deploy applications using a customized service account with specific permissions.
 
 The Managed Service Account, an OCM addon, facilitates seamless management of service accounts across multiple clusters for hub cluster admins. The addon agent monitors and rotates the token by controlling the creation and removal of the service account, ensuring security back to the hub cluster. Granting permissions to the new service account is achieved through the utilization of the new cluster permission resource.
 
@@ -152,7 +152,7 @@ spec:
 
 Effortlessly visualize and analyze the health and performance of your multi-cluster environment with RHACM's optimized dashboards. Take command of your data visualization experience by creating your own dashboards in a managed and controlled way using a Grafana-Developer instance which you can later bring into production.
 
-These purpose-built dashboards provide valuable insights into the status of applications, clusters, and resources, enabling informed decision-making. Let's now proceed to create a customized dashboard tailored for visualizing ArgoCD using some well documented [ArgoCD-metrics](https://argo-cd.readthedocs.io/en/stable/operator-manual/metrics/):
+These purpose-built dashboards provide valuable insights into the status of applications, clusters, and resources, enabling informed decision-making. Let's now proceed to create a customized dashboard tailored for visualizing Argo CD using some well documented [ArgoCD-metrics](https://argo-cd.readthedocs.io/en/stable/operator-manual/metrics/):
 
 ```
 cat >observability-metrics-custom-allowlist.yaml<<
@@ -281,7 +281,13 @@ object-templates-raw: >
 
 ## 10. Advanced Disaster Recovery Capabilities with ODF Integration
 
-Integrate RHACM with Open Data Foundation (ODF) for advanced Disaster Recovery (DR) capabilities. Ensure the resilience of your applications and data across clusters, minimizing downtime and providing a reliable solution for business continuity.
+GitOps does an excellent job for disaster recovery of stateless applications but it is sometimes necessary to take care of the state and consider potential
+outage scenarios.
+
+**Integrating RHACM with Open Data Foundation (ODF) for Enhanced DR Capabilities**
+
+To elevate Disaster Recovery capabilities, consider integrating Red Hat Advanced Cluster Management for Kubernetes (RHACM) with the Open Data Foundation (ODF). This integration ensures the resilience of your applications and data across clusters. By minimizing downtime, it provides a robust solution for business continuity.
+
 
 See here how to configure failover for Application-Sets in the UI using ODF:
 
@@ -291,4 +297,4 @@ See here how to configure failover for Application-Sets in the UI using ODF:
 
 ## Summary ##
 
-Red Hat Advanced Cluster Management for Kubernetes (RHACM) stands out as a powerful solution for GitOps with ArgoCD. Whether you are looking for centralized control with a push model or decentralized flexibility with a pull model, RHACM has you covered. From UI-Support and MultiCluster Search to strong RBAC support and advanced disaster recovery capabilities with ODF integration, RHACM provides a feature-rich experience.
+Red Hat Advanced Cluster Management for Kubernetes (RHACM) stands out as a powerful solution for GitOps with Argo CD. Whether you are looking for centralized control with a push model or decentralized flexibility with a pull model, RHACM has you covered. From UI-Support and MultiCluster Search to strong RBAC support and advanced disaster recovery capabilities with ODF integration, RHACM provides a feature-rich experience.
