@@ -155,11 +155,11 @@ Effortlessly visualize and analyze the health and performance of your multi-clus
 These purpose-built dashboards provide valuable insights into the status of applications, clusters, and resources, enabling informed decision-making. Let's now proceed to create a customized dashboard tailored for visualizing Argo CD using some well documented [ArgoCD-metrics](https://argo-cd.readthedocs.io/en/stable/operator-manual/metrics/):
 
 ```
-cat >observability-metrics-custom-allowlist.yaml<<
 kind: ConfigMap
 apiVersion: v1
 metadata:
   name: observability-metrics-custom-allowlist
+  namespace: open-cluster-management-observability
 data:
   metrics_list.yaml: |
     names:
@@ -174,16 +174,18 @@ data:
       - argocd-metrics
       - argocd_cluster_api_resource_objects
       - argocd_cluster_api_resources
+      - argocd_cluster_events_total
       - argocd_git_request_total
       - argocd_git_request_duration_seconds_bucket
       - argocd-repo-server
       - argocd_redis_request_total
-      - argocd_appset_applied_total
-      - argocd_appset_applied_failed_total
-      - argocd_appset_applied_duration_seconds_bucket.
-      - argocd_appset_reconcile_total
-      - argocd_appset_reconcile_failed_total
-      - argocd_appset_reconcile_duration_seconds_bucket
+      - process_start_time_seconds
+      - workqueue_depth
+      - go_memstats_heap_alloc_bytes
+      - process_cpu_seconds_total
+      - go_goroutines
+      - go_gc_duration_seconds
+      - grpc_server_handled_total
 ```
 
 
