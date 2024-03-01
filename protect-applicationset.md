@@ -101,4 +101,14 @@ spec:
 ```
 
 
+
+This best way however is to create a RHACM Policy to generate and monitor the ApplicationSet
+
+1. When you delete the Policy be incident the ApplicationSet remains by default
+2. If you delete the ApplicationSet gets deleted, then the PolicyController would recreate it after a short notive
+
+
+
+
+
 By implementing these measures, you can safeguard your ApplicationSets from accidental deletion and mitigate potential outages.
