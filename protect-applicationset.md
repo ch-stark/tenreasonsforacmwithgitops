@@ -102,10 +102,11 @@ spec:
 
 
 
-This best way however is to create a RHACM Policy to generate and monitor the ApplicationSet
+This best way might also that you create a RHACM Policy to generate and monitor the ApplicationSet
 
 1. When you delete the Policy be incident the ApplicationSet remains by default
-2. If you delete the ApplicationSet gets deleted, then the PolicyController would recreate it after a short notive
+2. If you delete the ApplicationSet gets deleted, then the PolicyController would recreate it after a short notice  (this must be tested carefully
+   ecpecially when you use the ApplicationSet for InfraAsCode) 
 
 
 
