@@ -2,7 +2,7 @@ To protect an ApplicationSet from accidental deletion, you can implement the fol
 
 Preserving Resources on Deletion in ApplicationSet YAML:
 
-´´´
+```
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -40,21 +40,21 @@ spec:
         syncOptions:
           - CreateNamespace=true
           - PruneLast=false
-´´´
+```
+
 
 Applying Labels to Protect Resources on Kubernetes Cluster:
-
 Apply the following label to protect resources:
 
-´´´
+```
 argocd.argoproj.io/sync-options: Prune, Delete=false
-´´´
+```
 
 Gatekeeper Constraint Template:
-
 Write a Gatekeeper Constraint Template to restrict deletion of ApplicationSets unless the user/group has the role of ApplicationSet-Admin and specify the names of the ApplicationSets to be checked. Here's an example:
 
-´´´
+
+```
 apiVersion: templates.gatekeeper.sh/v1beta1
 kind: ConstraintTemplate
 metadata:
@@ -68,7 +68,6 @@ spec:
     - target: admission.k8s.gatekeeper.sh
       rego: |
         package k8s.appsetdeletionrestriction
-
         violation[{"msg": msg}] {
           input.request.kind.kind == "ApplicationSet"
           not input.request.operation == "CREATE"
@@ -78,13 +77,11 @@ spec:
           not (any(role == input.parameters.allowedRoles[_]))
           msg := sprintf("User %v is not authorized to delete ApplicationSet", [input.user.username])
         }
-´´´
-
+```
 And here's how you would write a Constraint to use this template, specifying the allowed roles and ApplicationSet names:
 
-´´´
-apiVersion: constraints.gatekeyaml
-Copy codeeper.sh/v1beta1
+```
+apiVersion: constraints.gatekeeper.sh/v1beta1
 kind: ApplicationSetDeletionRestriction
 metadata:
   name: applicationset-deletion-restriction
@@ -101,10 +98,7 @@ spec:
       - "helmtest"
       - "another-applicationset"
       # Add more ApplicationSet names as needed
-´´´
+```
+
 
 By implementing these measures, you can safeguard your ApplicationSets from accidental deletion and mitigate potential outages.
-
-
-
-
