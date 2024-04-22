@@ -132,7 +132,7 @@ Notable features include:
 - **Rollout Strategy:** Implement strategic rollout plans for optimal resource deployment.
 - **Spread:** Ensure even distribution of resources across your environment.
 
-See here an example of a Placement which is configured to tolerate temporary cluster-unavailablity:
+See here an example of a Placement which is configured to tolerate temporary cluster-unavailability:
 
 ```
 apiVersion: cluster.open-cluster-management.io/v1beta1
